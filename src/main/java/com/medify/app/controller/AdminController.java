@@ -200,6 +200,31 @@ public class AdminController {
 
 /*********************** specialty section ********************/
 
+	@RequestMapping("/create-specialty")
+	public String createSpecialty() {
+		
+		return "admin/create-specialty";
+	}
+
+	@RequestMapping("/add-specialty")
+	@ResponseBody
+	public String addSpecialty(Specialty specialty) {
+		
+		Specialty existingSpecialty = service.findSpecialty(specialty.getName());
+		
+		if(existingSpecialty==null){
+			
+			specialty.setStatus("y");
+			specialty.setDateCreated(new Date());
+			
+			service.addSpecialty(specialty);
+
+			return "created";
+		}
+		else
+			return "exists";
+	}
+
 	@RequestMapping("/edit-specialty")
 	public String editSpecialty(@RequestParam int id, ModelMap map, HttpServletRequest request) {
 		
@@ -278,6 +303,8 @@ public class AdminController {
 		return "admin/list-specialties";
 	}
 
+	/***************** re schedules **********************/
+	
 	@RequestMapping("/list-re-schedules")
 	public String listReschedules(ModelMap map) {
 		

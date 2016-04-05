@@ -78,6 +78,9 @@ function endUpload(){
 		<iframe id="ifr" name="ifr" style="width:1px;height:1px;visibility:hidden"></iframe>
 		<br/><span id="message"></span>
 
+		<br/><br/>
+		<a href="download-sample?file=sample.xls">Download sample file</a>
+
 			<footer>
 				<hr>
 

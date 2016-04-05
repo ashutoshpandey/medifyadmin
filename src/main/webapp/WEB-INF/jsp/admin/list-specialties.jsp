@@ -47,6 +47,8 @@ $(document).ready(function() {
 
 			<h2>Listing Specialties</h2> <br/>
 
+			<br/><a href="create-specialty">Create new specialty</a><br/><br/>
+
 			<c:if test="${found}">
 
 				<table id="grid" class="display" cellspacing="0" width="100%">

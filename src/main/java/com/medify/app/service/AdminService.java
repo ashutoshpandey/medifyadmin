@@ -52,4 +52,8 @@ public interface AdminService {
 	PromoCode findPromoCode(int id);
 
 	List<HealthTip> getHealthTips();
+
+	Specialty findSpecialty(String name);
+
+	boolean addSpecialty(Specialty specialty);
 }

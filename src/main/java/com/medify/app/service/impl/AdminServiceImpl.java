@@ -141,4 +141,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return dao.getHealthTips();
 	}
+
+	@Override
+	public Specialty findSpecialty(String name) {
+
+		return dao.findSpecialty(name);
+	}
+
+	@Override
+	public boolean addSpecialty(Specialty specialty) {
+
+		return dao.addSpecialty(specialty);
+	}
 }

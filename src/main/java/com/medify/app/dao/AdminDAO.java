@@ -55,4 +55,8 @@ public interface AdminDAO {
 
 	List<HealthTip> getHealthTips();
 
+	Specialty findSpecialty(String name);
+
+	boolean addSpecialty(Specialty specialty);
+
 }

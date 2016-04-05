@@ -64,7 +64,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Doctor as doc where doc.status='active'");
+		Query query = session.createQuery("from Doctor as doc where doc.status='y'");
 		
 		return (List<Doctor>)query.list();
 	}
@@ -109,7 +109,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Doctor as doc where doc.status='active'");
+		Query query = session.createQuery("from Doctor as doc where doc.status='y'");
 		
 		return (List<Doctor>)query.list();
 	}
@@ -126,7 +126,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Query as qry where qry.status='active'");
+		Query query = session.createQuery("from Query as qry where qry.status='y'");
 		
 		return (List<com.medify.app.entity.Query>)query.list();
 	}
@@ -137,7 +137,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from DoctorInvite as invite where invite.status='active'");
+		Query query = session.createQuery("from DoctorInvite as invite where invite.status='y'");
 		
 		return (List<com.medify.app.entity.DoctorInvite>)query.list();
 	}
@@ -178,7 +178,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Specialty as sp where sp.status='active'");
+		Query query = session.createQuery("from Specialty as sp where sp.status='y'");
 		
 		return (List<Specialty>)query.list();
 	}
@@ -205,7 +205,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Reschedule as rs where rs.status='active'");
+		Query query = session.createQuery("from Reschedule as rs where rs.status='y'");
 		
 		return (List<Reschedule>)query.list();
 	}
@@ -216,7 +216,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from PromoCode as pc where pc.status='active'");
+		Query query = session.createQuery("from PromoCode as pc where pc.status='y'");
 		
 		return (List<PromoCode>)query.list();
 	}
@@ -280,6 +280,30 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		List<HealthTip> healthTips = (List<HealthTip>)session.createQuery("from HealthTip").list();
 		
 		return healthTips;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Specialty findSpecialty(String name) {
+
+		Session session = getCurrentSession();
+		
+		Query query = session.createQuery("from Specialty as specialty where specialty.name=:name and specialty.status='y'");
+		query.setString("name", name);
+	
+		List<Specialty> specialties = query.list();
+		
+		return specialties.isEmpty() ? null : specialties.get(0);				
+	}
+
+	@Override
+	public boolean addSpecialty(Specialty specialty) {
+
+		Session session = getCurrentSession();
+		
+		session.save(specialty);
+		
+		return true;
 	}
 
 }

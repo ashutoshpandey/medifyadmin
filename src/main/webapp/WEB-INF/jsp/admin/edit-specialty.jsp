@@ -15,17 +15,13 @@
 			var frm = $("#frm").serialize();
 			
 			$.ajax({
-				url: 'add-promo-code',
+				url: 'update-specialty',
 				data: frm,
 				type: 'post',
 				success: function(result){
 					
-					if(result=="created"){
-						$("#message").html("Promo code created!");
-						$("input[type='text']").val("");
-					}
-					else if(result=="exists")
-						$("#message").html("Duplicate promo code!");
+					if(result=="updated")
+						$("#message").html("Record updated!");
 					else
 						$("#message").html(result);
 				}
@@ -44,24 +40,24 @@
 	<div class="content">
 		<div class="main-content">
 
-			<h2>Create Promo Code</h2> <br/>
+			<h2>Edit Specialty</h2> <br/>
 
-			<a href="list-promo-codes">Existing promo codes</a> <br/><br/>
+			<a href="list-specialties">Existing specialties</a> <br/><br/>
 
 			<div class="" style="width:70%">
 				<div class="panel panel-default">
-					<p class="panel-heading no-collapse">Create a new promo code</p>
+					<p class="panel-heading no-collapse">Editing specialty...</p>
 					<div class="panel-body">
 						<form id="frm">
 							<div class="form-group">
-								<label>Code</label> <input type="text" name="code"
+								<label>Name</label> <input type="text" name="name" value="${specialty.name}"
 									class="form-control span12">
 							</div>
 							<div class="form-group">
-								<label>Amount</label> <input type="text" name="amount"
+								<label>Display name</label> <input type="text" name="displayName" value="${specialty.displayName}"
 									class="form-control span12 form-control">
 							</div>
-							<a href="" class="btn btn-primary pull-right">Create</a>
+							<a href="" class="btn btn-primary pull-right">Update Doctor</a>
 							<div class="clearfix"></div>
 							<span id="message"></span>
 						</form>
