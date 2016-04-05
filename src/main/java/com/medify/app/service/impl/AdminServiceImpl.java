@@ -125,9 +125,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean savePromoCode(PromoCode promoCode) {
+	public boolean addPromoCode(PromoCode promoCode) {
 
-		return dao.savePromoCode(promoCode);
+		return dao.addPromoCode(promoCode);
 	}
 
 	@Override

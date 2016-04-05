@@ -49,7 +49,7 @@ public interface AdminDAO {
 
 	PromoCode findPromoCode(String code);
 
-	boolean savePromoCode(PromoCode promoCode);
+	boolean addPromoCode(PromoCode promoCode);
 
 	PromoCode findPromoCode(int id);
 

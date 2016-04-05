@@ -314,7 +314,7 @@ public class AdminController {
 		return "admin/create-promo-code";
 	}
 
-	@RequestMapping("/save-promo-code")
+	@RequestMapping("/add-promo-code")
 	@ResponseBody
 	public String savePromoCode(PromoCode promoCode) {
 		
@@ -325,7 +325,7 @@ public class AdminController {
 			promoCode.setStatus("active");
 			promoCode.setDateCreated(new Date());
 			
-			service.savePromoCode(promoCode);
+			service.addPromoCode(promoCode);
 
 			return "created";
 		}
