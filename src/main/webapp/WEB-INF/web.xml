@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>medify</display-name>
+  <servlet>
+    <servlet-name>springconf</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name></param-name>
+      <param-value></param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springconf</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>		
+			/WEB-INF/applicationContext.xml
+			/WEB-INF/hibernate-config.xml
+		</param-value>
+  </context-param>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+</web-app>
