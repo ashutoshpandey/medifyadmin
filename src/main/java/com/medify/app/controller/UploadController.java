@@ -1,14 +1,19 @@
 package com.medify.app.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -447,5 +452,27 @@ public class UploadController {
 		}
 		
 		return "admin/uploaded";
+	}
+	
+	@RequestMapping("/download-sample")
+	public String downloadSample(HttpServletRequest request, HttpServletResponse response, String file){
+		String path = UploadController.class.getResource("/com/medify/data/" + file).getFile();
+
+	    response.setContentType("application/force-download");
+	    response.setContentType("application/vnd.ms-excel");
+	    response.setHeader("Content-Disposition", "attachment; filename=" + file); 
+
+	    try{
+	        File fi = new File(path);
+	        InputStream in = new BufferedInputStream(new FileInputStream(fi));
+	        ServletOutputStream out = response.getOutputStream();
+	        IOUtils.copy(in, out);
+	        response.flushBuffer();
+
+	        return null;
+	    }
+	    catch(Exception ex){
+	        return null;
+	    }
 	}
 }

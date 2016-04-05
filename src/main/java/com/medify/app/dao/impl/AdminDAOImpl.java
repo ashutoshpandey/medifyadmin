@@ -25,7 +25,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Admin as admin where admin.user_name=:userName and password=:password");
+		Query query = session.createQuery("from Admin as admin where admin.userName=:userName and password=:password");
 		query.setString("userName", admin.getUserName());
 		query.setString("password", admin.getPassword());
 		
@@ -103,6 +103,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Doctor> getDoctorsBySpecialty(String specialty) {
 
@@ -119,6 +120,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<com.medify.app.entity.Query> getQueries(String type) {
 		
@@ -129,6 +131,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		return (List<com.medify.app.entity.Query>)query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<DoctorInvite> getDoctorInvites() {
 		
@@ -169,6 +172,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Specialty> getSpecialties() {
 		
@@ -195,6 +199,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reschedule> getReschedules() {
 		
@@ -205,6 +210,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		return (List<Reschedule>)query.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PromoCode> getPromoCodes() {
 		
