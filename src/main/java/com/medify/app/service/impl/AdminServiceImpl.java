@@ -153,4 +153,10 @@ public class AdminServiceImpl implements AdminService {
 
 		return dao.addSpecialty(specialty);
 	}
+
+	@Override
+	public boolean updatePromoCode(PromoCode promoCode) {
+
+		return dao.updatePromoCode(promoCode);
+	}
 }

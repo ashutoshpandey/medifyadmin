@@ -18,7 +18,7 @@ public class AuthenticationController {
 	@Autowired
 	private AdminService service;
 
-	@RequestMapping("/login")
+	@RequestMapping("/")
 	public String login() {
 		
 		return "admin/login";

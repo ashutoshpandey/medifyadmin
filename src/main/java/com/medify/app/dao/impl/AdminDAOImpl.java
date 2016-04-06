@@ -216,7 +216,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from PromoCode as pc where pc.status='y'");
+		Query query = session.createQuery("from PromoCode as pc where pc.status='active'");
 		
 		return (List<PromoCode>)query.list();
 	}
@@ -304,6 +304,29 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		session.save(specialty);
 		
 		return true;
+	}
+
+	@Override
+	public boolean updatePromoCode(PromoCode promoCode) {
+
+		Session session = getCurrentSession();
+
+		PromoCode existingPromoCode = (PromoCode) session.get(PromoCode.class, promoCode.getId());
+		
+		if(existingPromoCode!=null){
+
+			existingPromoCode.setCode(promoCode.getCode());
+			existingPromoCode.setAmount(promoCode.getAmount());
+			existingPromoCode.setStartDate(promoCode.getStartDate());
+			existingPromoCode.setEndDate(promoCode.getEndDate());
+			existingPromoCode.setUsageCount(promoCode.getUsageCount());
+			
+			session.update(existingPromoCode);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "promo_codes")
 public class PromoCode {
@@ -29,7 +31,48 @@ public class PromoCode {
 	@Column(name = "CREATED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
+
+	@Column(name = "START_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private Date startDate;
+
+	@Column(name = "END_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private Date endDate;
+
+	@Column(name = "USAGE_COUNT")
+	private int usageCount;
 	
+	public PromoCode(){
+		
+	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getUsageCount() {
+		return usageCount;
+	}
+
+	public void setUsageCount(int usageCount) {
+		this.usageCount = usageCount;
+	}
+
 	@Column(name = "status", length=10)
 	private String status;
 

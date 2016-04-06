@@ -56,4 +56,6 @@ public interface AdminService {
 	Specialty findSpecialty(String name);
 
 	boolean addSpecialty(Specialty specialty);
+
+	boolean updatePromoCode(PromoCode promoCode);
 }

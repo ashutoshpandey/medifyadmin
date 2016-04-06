@@ -59,4 +59,6 @@ public interface AdminDAO {
 
 	boolean addSpecialty(Specialty specialty);
 
+	boolean updatePromoCode(PromoCode promoCode);
+
 }

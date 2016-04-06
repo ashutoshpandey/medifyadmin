@@ -320,6 +320,8 @@ public class AdminController {
 		return "admin/list-re-schedules";
 	}	
 
+	/***************** promo codes **********************/
+
 	@RequestMapping("/list-promo-codes")
 	public String listPromoCodes(ModelMap map) {
 		
@@ -358,6 +360,53 @@ public class AdminController {
 		}
 		else
 			return "exists";
+	}
+
+	@RequestMapping("/edit-promo-code")
+	public String editPromoCode(@RequestParam int id, ModelMap map, HttpServletRequest request) {
+		
+		PromoCode promoCode = service.findPromoCode(id);
+		
+		if(promoCode!=null){
+			
+			request.getSession().setAttribute("promoCodeId", promoCode.getId());
+			
+			map.addAttribute("found", true);
+			map.addAttribute("promoCode", promoCode);
+		}
+		else
+			map.addAttribute("found", false);
+		
+		return "admin/edit-promo-code";
+	}
+
+	@RequestMapping("/update-promo-code")
+	@ResponseBody
+	public String updatePromoCode(PromoCode promoCode, ModelMap map, HttpServletRequest request) {
+		
+		Object objPromoCodeId = request.getSession().getAttribute("promoCodeId");
+		
+		if(objPromoCodeId!=null){
+			
+			int promoCodeId = Integer.parseInt(objPromoCodeId.toString());
+			
+			PromoCode existingPromoCode = service.findPromoCode(promoCodeId);
+			
+			if(existingPromoCode!=null){
+				
+				promoCode.setId(promoCodeId);
+				promoCode.setDateCreated(existingPromoCode.getDateCreated());
+				promoCode.setStatus(existingPromoCode.getStatus());
+				
+				service.updatePromoCode(promoCode);
+	
+				return "updated";
+			}
+			else
+				return "invalid";
+		}
+		else
+			return "invalid";
 	}
 
 	@RequestMapping("/remove-promo-code")
