@@ -25,11 +25,11 @@ public class HealthTip {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "specialty_id", nullable = true)
-	private Specialty specialty;
+	private Speciality specialty;
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "doctor_id", nullable = true)
-	private Doctor doctor;
+	private DoctorInfo doctor;
 
 	@Column(name = "topic")
 	private String topic;
@@ -44,17 +44,21 @@ public class HealthTip {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
 	
+	@Column(name = "like_count", length=10)
+	private Integer likeCount=0;
+	
+	
 	private String status;
 
 	public int getId() {
 		return id;
 	}
 
-	public Specialty getSpecialty() {
+	public Speciality getSpecialty() {
 		return specialty;
 	}
 
-	public Doctor getDoctor() {
+	public DoctorInfo getDoctor() {
 		return doctor;
 	}
 
@@ -82,11 +86,11 @@ public class HealthTip {
 		this.id = id;
 	}
 
-	public void setSpecialty(Specialty specialty) {
+	public void setSpecialty(Speciality specialty) {
 		this.specialty = specialty;
 	}
 
-	public void setDoctor(Doctor doctor) {
+	public void setDoctor(DoctorInfo doctor) {
 		this.doctor = doctor;
 	}
 
@@ -108,5 +112,19 @@ public class HealthTip {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the likeCount
+	 */
+	public Integer getLikeCount() {
+		return likeCount;
+	}
+
+	/**
+	 * @param likeCount the likeCount to set
+	 */
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
 	}
 }

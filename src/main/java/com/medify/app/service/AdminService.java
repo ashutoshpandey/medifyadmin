@@ -3,41 +3,41 @@ package com.medify.app.service;
 import java.util.List;
 
 import com.medify.app.entity.Admin;
-import com.medify.app.entity.Doctor;
+import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
 import com.medify.app.entity.PromoCode;
 import com.medify.app.entity.Query;
 import com.medify.app.entity.Reschedule;
-import com.medify.app.entity.Specialty;
+import com.medify.app.entity.Speciality;
 
 public interface AdminService {
 
 	boolean isValidAdmin(Admin admin);
 
-	boolean addDoctor(Doctor doctor);
+	boolean addDoctorInfo(DoctorInfo doctor);
 
-	Doctor findDoctor(int id);
+	DoctorInfo findDoctorInfo(long doctorId);
 
-	List<Doctor> getDoctors();
+	List<DoctorInfo> getDoctorInfos();
 
-	void updateDoctor(Doctor doctor);
+	void updateDoctorInfo(DoctorInfo doctor);
 
-	boolean removeDoctor(int id);
+	boolean removeDoctorInfo(int id);
 
 	boolean updatePassword(String userName, String password);
 
 	List<Query> getQueries(String type);
 
-	List<DoctorInvite> getDoctorInvites();
+	List<DoctorInvite> getDoctorInfoInvites();
 
-	Specialty findSpecialty(int specialtyId);
+	Speciality findSpeciality(long specialtyId);
 
-	boolean updateSpecialty(Specialty specialty);
+	boolean updateSpeciality(Speciality specialty);
 
-	List<Specialty> getSpecialties();
+	List<Speciality> getSpecialties();
 
-	boolean removeSpecialty(int id);
+	boolean removeSpeciality(int id);
 
 	List<Reschedule> getReschedules();
 
@@ -53,9 +53,9 @@ public interface AdminService {
 
 	List<HealthTip> getHealthTips();
 
-	Specialty findSpecialty(String name);
+	Speciality findSpeciality(String name);
 
-	boolean addSpecialty(Specialty specialty);
+	boolean addSpeciality(Speciality specialty);
 
 	boolean updatePromoCode(PromoCode promoCode);
 }

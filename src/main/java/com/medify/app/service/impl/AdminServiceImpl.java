@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.medify.app.dao.AdminDAO;
 import com.medify.app.entity.Admin;
-import com.medify.app.entity.Doctor;
+import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
 import com.medify.app.entity.PromoCode;
 import com.medify.app.entity.Query;
 import com.medify.app.entity.Reschedule;
-import com.medify.app.entity.Specialty;
+import com.medify.app.entity.Speciality;
 import com.medify.app.service.AdminService;
 
 @Service
@@ -29,33 +29,33 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean addDoctor(Doctor doctor) {
+	public boolean addDoctorInfo(DoctorInfo doctor) {
 
-		return dao.addDoctor(doctor);
+		return dao.addDoctorInfo(doctor);
 	}
 
 	@Override
-	public Doctor findDoctor(int id) {
+	public DoctorInfo findDoctorInfo(long id) {
 
-		return dao.findDoctor(id);
+		return dao.findDoctorInfo(id);
 	}
 
 	@Override
-	public boolean removeDoctor(int id) {
+	public boolean removeDoctorInfo(int id) {
 
-		return dao.removeDoctor(id);
+		return dao.removeDoctorInfo(id);
 	}
 
 	@Override
-	public List<Doctor> getDoctors() {
+	public List<DoctorInfo> getDoctorInfos() {
 
-		return dao.getDoctors();
+		return dao.getDoctorInfos();
 	}
 
 	@Override
-	public void updateDoctor(Doctor doctor) {
+	public void updateDoctorInfo(DoctorInfo doctor) {
 
-		dao.updateDoctor(doctor);
+		dao.updateDoctorInfo(doctor);
 	}
 
 	@Override
@@ -71,33 +71,33 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<DoctorInvite> getDoctorInvites() {
+	public List<DoctorInvite> getDoctorInfoInvites() {
 
-		return dao.getDoctorInvites();
+		return dao.getDoctorInfoInvites();
 	}
 
 	@Override
-	public Specialty findSpecialty(int specialtyId) {
+	public Speciality findSpeciality(long specialtyId) {
 		
-		return dao.findSpecialty(specialtyId);
+		return dao.findSpeciality(specialtyId);
 	}
 
 	@Override
-	public boolean updateSpecialty(Specialty specialty) {
+	public boolean updateSpeciality(Speciality specialty) {
 		
-		return dao.updateSpecialty(specialty);
+		return dao.updateSpeciality(specialty);
 	}
 
 	@Override
-	public List<Specialty> getSpecialties() {
+	public List<Speciality> getSpecialties() {
 		
 		return dao.getSpecialties();
 	}
 
 	@Override
-	public boolean removeSpecialty(int id) {
+	public boolean removeSpeciality(int id) {
 		
-		return dao.removeSpecialty(id);
+		return dao.removeSpeciality(id);
 	}
 
 	@Override
@@ -143,15 +143,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Specialty findSpecialty(String name) {
+	public Speciality findSpeciality(String name) {
 
-		return dao.findSpecialty(name);
+		return dao.findSpeciality(name);
 	}
 
 	@Override
-	public boolean addSpecialty(Specialty specialty) {
+	public boolean addSpeciality(Speciality specialty) {
 
-		return dao.addSpecialty(specialty);
+		return dao.addSpeciality(specialty);
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.medify.app.entity.Doctor;
+import com.medify.app.entity.DoctorInfo;
 import com.medify.app.service.AdminService;
 
 import jxl.Sheet;
@@ -118,16 +117,19 @@ public class UploadController {
 			if(headersValid){
 			// i=0 means header
 
-			String firstName;
-			String lastName;
-			String emailID;
-			String contactNumber;
+			String name;
+			String email;
+			int age;
+			String phoneNumber;
 			String gender;
-			String address;
-			String zipCode;
 			String city;
-			String state;
-			String country;
+			String aboutMe;
+			String clinicAddress;
+			String consultFeeCall;
+			String consultFeeText;
+			String education;
+			String location;
+			String totalEx;
 			
 			for (int i = 1; i < sheet.getRows(); i++) {
 				
@@ -135,101 +137,74 @@ public class UploadController {
 				
 				try {
 					try {
-						firstName = sheet.getCell(0, i).getContents();
+						name = sheet.getCell(0, i).getContents();
 						
 						errorRow[0] = "OK";
 						
-						if(firstName==null){
-							errorRow[0] = "Cannot read first name";
-							++wrongCount;
-						}
-						if(firstName.length()==0){
-							errorRow[0] = "No value provided for first name";
-							++wrongCount;
-						}
-						
-						firstName = firstName==null ? "" : firstName;
+						name = name==null ? "" : name;
 						
 					} catch (Exception ex) {
 						status = "field";
-						firstName = "";
+						name = "";
 						++wrongCount;
 					}
-					
-					System.out.println("1. Wrong count = " + wrongCount);
 
 					try {
-						errorRow[1] = "";
+						errorRow[1] = "Email : OK";
 						
-						lastName = sheet.getCell(1, i).getContents();
+						email = sheet.getCell(1, i).getContents();
 						
-						lastName = lastName==null ? "" : lastName;
-						
-					} catch (Exception ex) {
-						lastName = "";
-					}
-
-					try {
-						errorRow[2] = "Email : OK";
-						
-						emailID = sheet.getCell(2, i).getContents();
-						
-						if(emailID!=null && emailID.length()>5){
+						if(email!=null && email.length()>5){
 							
 							String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 	
-							boolean valid = emailID.matches(EMAIL_REGEX);
+							boolean valid = email.matches(EMAIL_REGEX);
 	
 							if(!valid){
-								emailID = "";
-								errorRow[2] = "Invalid email id";
-								++wrongCount;
+								email = "";
 							}
 						}
 						else{
-							//errorRow[2] = "Cannot read email";
-							//status = "field";
-							emailID = "";
-							//++wrongCount;
+							email = "";
 						}
 						
 					} catch (Exception ex) {
-						errorRow[2] = "Error in reading email";
-						status = "field";
-						emailID = "";
-						++wrongCount;
+						email = "";
 					}
 					
-					System.out.println("3. Wrong count = " + wrongCount);
+					try {
+						errorRow[2] = "Age : OK";
+						
+						age = Integer.parseInt(sheet.getCell(2, i).getContents());
+						
+					} catch (Exception ex) {
+						age = 0;
+					}
 					
 					try {
-						errorRow[3] = "Contact number : OK";
+						errorRow[3] = "Phone number : OK";
 						
-						contactNumber = sheet.getCell(3, i).getContents();
+						phoneNumber = sheet.getCell(3, i).getContents();
 						
-						if(contactNumber==null || contactNumber.trim().length()!=10){
-							++wrongCount;
-							contactNumber = "";
-							errorRow[3] = "Invalid contact number";
+						if(phoneNumber==null || phoneNumber.trim().length()!=10){
+							phoneNumber = "";
 						}
 						
-						if(contactNumber==null || contactNumber.trim().length()==0){
-							contactNumber = "";
+						if(phoneNumber==null || phoneNumber.trim().length()==0){
+							phoneNumber = "";
 						}
 
 					} catch (Exception ex) {
-						status = "field";
-						contactNumber = "";
-						++wrongCount;
+						phoneNumber = "";
 					}
 					
 					try {
-						errorRow[5] = "Gender : OK";
+						errorRow[4] = "Gender : OK";
 						
 						gender = sheet.getCell(4, i).getContents();
 						
 						if(gender==null){
-							errorRow[5] = "Gender not provided, assuming male";
+							errorRow[4] = "Gender not provided, assuming male";
 						}
 						else{
 							String temp = gender.toLowerCase();
@@ -237,58 +212,21 @@ public class UploadController {
 							if(temp.equals("male") || temp.equals("female"))
 								;
 							else{
-								errorRow[5] = "Invalid value for gender, assuming male";
-								++wrongCount;
+								gender = "male";
 							}
 						}
 
 						gender = gender==null ? "male" : gender;
 						
 					} catch (Exception ex) {
-						status = "field";
 						gender = "male";
 					}
 					
 					try {
-						errorRow[5] = "Address : OK";
+						errorRow[5] = "City : OK";
 						
-						address = sheet.getCell(5, i).getContents();
-						
-						if(address==null){
-							errorRow[5] = "Address not provided";
-						}
-						
-					} catch (Exception ex) {
-						status = "field";
-						address = "";
-					}
-					
-					try {
-						errorRow[6] = "ZipCode : OK";
-						
-						zipCode = sheet.getCell(6, i).getContents();
-						
-						Integer.parseInt(zipCode);
-						
-					} catch (Exception ex) {
-						errorRow[6] = "Invalid zipcode";
-						status = "field";
-						zipCode = "";
-						++wrongCount;
-					}
-					
-					try {
-						errorRow[7] = "City : OK";
-						
-						city = sheet.getCell(7, i).getContents();
-						
-						if(city==null){
-							errorRow[7] = "Cannot read city, considering blank";
-						}
-						else if(city.length()==0){
-							errorRow[7] = "City not provided, considering blank";
-						}
-						
+						city = sheet.getCell(5, i).getContents();
+
 						city = city==null ? "" : city;
 						
 					} catch (Exception ex) {
@@ -296,71 +234,95 @@ public class UploadController {
 					}
 					
 					try {
-						errorRow[8] = "State : OK";
+						errorRow[6] = "About me : OK";
 						
-						state = sheet.getCell(8, i).getContents();
+						aboutMe = sheet.getCell(6, i).getContents();
 						
-						if(state==null){
-							errorRow[8] = "Cannot read state, considering blank";
-						}
-						else if(city.length()==0){
-							errorRow[8] = "State not provided, considering blank";
-						}
-						
-						state = state==null ? "" : state;
-						
+						aboutMe = aboutMe==null ? "" : aboutMe;
+
 					} catch (Exception ex) {
-						state = "";
+						aboutMe = "";
 					}
 					
 					try {
-						errorRow[9] = "Country : OK";
+						errorRow[7] = "Clinic address : OK";
 						
-						country = sheet.getCell(9, i).getContents();
+						clinicAddress = sheet.getCell(7, i).getContents();
 						
-						if(country==null){
-							errorRow[9] = "Cannot read country, rejecting the record";
-							
-							wrongCount+=3;		// just making sure, it value is greater than 2(if wrongCount>2, record will be rejected)
-						}
-						else if(country.length()==0){
-							errorRow[9] = "Country not provided, rejecting the record";
-
-							wrongCount+=3;		// just making sure, it value is greater than 2(if wrongCount>2, record will be rejected)
-						}
+						clinicAddress = clinicAddress==null ? "" : clinicAddress;
 						
 					} catch (Exception ex) {
-						
-						errorRow[9] = "Cannot read country, rejecting record";
-
-						wrongCount+=3;		// just making sure, it value is greater than 2(if wrongCount>2, record will be rejected)								
-
-						status = "field";
-						
-						country = "";
+						clinicAddress = "";
 					}
 					
-					System.out.println("10. Wrong count = " + wrongCount);
-
+					try {
+						errorRow[8] = "Consult fee call : OK";
+						
+						consultFeeCall = sheet.getCell(8, i).getContents();
+						
+						consultFeeCall = consultFeeCall==null ? "" : consultFeeCall;
+						
+					} catch (Exception ex) {
+						consultFeeCall = "";
+					}
+					
+					try {
+						errorRow[9] = "Consult fee text : OK";
+						
+						consultFeeText = sheet.getCell(9, i).getContents();
+						
+					} catch (Exception ex) {
+						consultFeeText = "";
+					}
+					
+					try {
+						errorRow[10] = "Education : OK";
+						
+						education = sheet.getCell(10, i).getContents();
+						
+					} catch (Exception ex) {
+						education = "";
+					}
+					
+					try {
+						errorRow[10] = "Location : OK";
+						
+						location = sheet.getCell(10, i).getContents();
+						
+					} catch (Exception ex) {
+						location = "";
+					}
+					
+					try {
+						errorRow[10] = "Total experience : OK";
+						
+						totalEx = sheet.getCell(10, i).getContents();
+						
+					} catch (Exception ex) {
+						totalEx = "";
+					}
+					
 					recordStatusList.add(errorRow);
 					
 					if(wrongCount<2){
-						Doctor doctor = new Doctor();
+						DoctorInfo doctor = new DoctorInfo();
 	
-						doctor.setFirstName(firstName);
-						doctor.setLastName(lastName);
-						doctor.setEmailID(emailID);
-						doctor.setContactNumber(contactNumber);
+						doctor.setName(name);
+						doctor.setEmail(email);
+						doctor.setAge(age);
 						doctor.setGender(gender);
-						doctor.setAddress(address);
-						doctor.setZipCode(zipCode);
 						doctor.setCity(city);
-						doctor.setState(state);
-						doctor.setCountry(country);
-						doctor.setDateCreated(new Date());
-						doctor.setState("active");
+						doctor.setAboutMe(aboutMe);
+						doctor.setClinicAddress(clinicAddress);
+						doctor.setConsultFeeCall(consultFeeCall);
+						doctor.setConsultFeeText(consultFeeText);
+						doctor.setEducation(education);
+						doctor.setIsEnabled("y");
+						doctor.setLocation(location);
+						doctor.setPhoneNumber(phoneNumber);
+						doctor.setTotalEx(totalEx);
 	
-						boolean added = service.addDoctor(doctor);
+						boolean added = service.addDoctorInfo(doctor);
 						
 						if(added)
 							addedCount++;

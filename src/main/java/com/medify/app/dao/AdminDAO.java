@@ -3,43 +3,43 @@ package com.medify.app.dao;
 import java.util.List;
 
 import com.medify.app.entity.Admin;
-import com.medify.app.entity.Doctor;
+import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
 import com.medify.app.entity.PromoCode;
 import com.medify.app.entity.Query;
 import com.medify.app.entity.Reschedule;
-import com.medify.app.entity.Specialty;
+import com.medify.app.entity.Speciality;
 
 public interface AdminDAO {
 
 	boolean isValidAdmin(Admin admin);
 
-	boolean addDoctor(Doctor doctor);
+	boolean addDoctorInfo(DoctorInfo doctor);
 
-	boolean removeDoctor(int doctorId);
+	boolean removeDoctorInfo(int doctorId);
 
-	List<Doctor> getDoctors();
+	List<DoctorInfo> getDoctorInfos();
 
-	Doctor findDoctor(int id);
+	DoctorInfo findDoctorInfo(long id);
 
-	boolean updateDoctor(Doctor doctor);
+	boolean updateDoctorInfo(DoctorInfo doctor);
 
-	List<Doctor> getDoctorsBySpecialty(String specialty);
+	List<DoctorInfo> getDoctorInfosBySpeciality(String specialty);
 
 	boolean updatePassword(String userName, String password);
 
 	List<Query> getQueries(String type);
 
-	List<DoctorInvite> getDoctorInvites();
+	List<DoctorInvite> getDoctorInfoInvites();
 
-	Specialty findSpecialty(int specialtyId);
+	Speciality findSpeciality(long specialtyId);
 
-	boolean updateSpecialty(Specialty specialty);
+	boolean updateSpeciality(Speciality specialty);
 
-	List<Specialty> getSpecialties();
+	List<Speciality> getSpecialties();
 
-	boolean removeSpecialty(int id);
+	boolean removeSpeciality(int id);
 
 	List<Reschedule> getReschedules();
 
@@ -55,9 +55,9 @@ public interface AdminDAO {
 
 	List<HealthTip> getHealthTips();
 
-	Specialty findSpecialty(String name);
+	Speciality findSpeciality(String name);
 
-	boolean addSpecialty(Specialty specialty);
+	boolean addSpeciality(Speciality specialty);
 
 	boolean updatePromoCode(PromoCode promoCode);
 

@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.medify.app.dao.AdminDAO;
 import com.medify.app.entity.Admin;
-import com.medify.app.entity.Doctor;
+import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
 import com.medify.app.entity.PromoCode;
 import com.medify.app.entity.Reschedule;
-import com.medify.app.entity.Specialty;
+import com.medify.app.entity.Speciality;
 
 @Repository
 @Transactional
@@ -33,7 +33,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 	}
 
 	@Override
-	public boolean addDoctor(Doctor doctor) {
+	public boolean addDoctorInfo(DoctorInfo doctor) {
 
 		Session session = getCurrentSession();
 		
@@ -43,11 +43,11 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 	}
 
 	@Override
-	public boolean removeDoctor(int doctorId) {
+	public boolean removeDoctorInfo(int doctorId) {
 
 		Session session = getCurrentSession();
 
-		Doctor doctor = (Doctor) session.get(Doctor.class, doctorId);
+		DoctorInfo doctor = (DoctorInfo) session.get(DoctorInfo.class, doctorId);
 		
 		if(doctor!=null){
 			session.delete(doctor);
@@ -60,42 +60,50 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Doctor> getDoctors() {
+	public List<DoctorInfo> getDoctorInfos() {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Doctor as doc where doc.status='y'");
+		Query query = session.createQuery("from DoctorInfo as doc where doc.status='y'");
 		
-		return (List<Doctor>)query.list();
+		return (List<DoctorInfo>)query.list();
 	}
 
 	@Override
-	public Doctor findDoctor(int doctorId) {
+	public DoctorInfo findDoctorInfo(long doctorId) {
 		
 		Session session = getCurrentSession();
 
-		Doctor doctor = (Doctor) session.get(Doctor.class, doctorId);
+		DoctorInfo doctor = (DoctorInfo) session.get(DoctorInfo.class, doctorId);
 		
 		return doctor==null ? null: doctor;
 	}
 
 	@Override
-	public boolean updateDoctor(Doctor doctor) {
+	public boolean updateDoctorInfo(DoctorInfo doctor) {
 
 		Session session = getCurrentSession();
 
-		Doctor existingDoctor = (Doctor) session.get(Doctor.class, doctor.getId());
+		DoctorInfo existingDoctorInfo = (DoctorInfo) session.get(DoctorInfo.class, doctor.getId());
 		
-		if(existingDoctor!=null){
+		if(existingDoctorInfo!=null){
 
-			existingDoctor.setFirstName(doctor.getFirstName());
-			existingDoctor.setLastName(doctor.getLastName());
-			existingDoctor.setCity(doctor.getCity());
-			existingDoctor.setContactNumber(doctor.getContactNumber());
-			existingDoctor.setCountry(doctor.getCountry());
-			existingDoctor.setAddress(doctor.getAddress());
-			
-			session.update(existingDoctor);
+			existingDoctorInfo.setName(doctor.getName());
+			existingDoctorInfo.setAboutMe(doctor.getAboutMe());
+			existingDoctorInfo.setCity(doctor.getCity());
+			existingDoctorInfo.setPhoneNumber(doctor.getPhoneNumber());
+			existingDoctorInfo.setAge(doctor.getAge());
+			existingDoctorInfo.setClinicAddress(doctor.getClinicAddress());
+			existingDoctorInfo.setConsultFeeCall(doctor.getConsultFeeCall());
+			existingDoctorInfo.setConsultFeeText(doctor.getConsultFeeText());
+			existingDoctorInfo.setEducation(doctor.getEducation());
+			existingDoctorInfo.setEmail(doctor.getEmail());
+			existingDoctorInfo.setGender(doctor.getGender());
+			existingDoctorInfo.setIsEnabled(doctor.getIsEnabled());
+			existingDoctorInfo.setLocation(doctor.getLocation());
+			existingDoctorInfo.setTotalEx(doctor.getTotalEx());
+
+			session.update(existingDoctorInfo);
 			
 			return true;
 		}
@@ -105,13 +113,13 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Doctor> getDoctorsBySpecialty(String specialty) {
+	public List<DoctorInfo> getDoctorInfosBySpeciality(String specialty) {
 
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Doctor as doc where doc.status='y'");
+		Query query = session.createQuery("from DoctorInfo as doc where doc.status='y'");
 		
-		return (List<Doctor>)query.list();
+		return (List<DoctorInfo>)query.list();
 	}
 
 	@Override
@@ -133,38 +141,38 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<DoctorInvite> getDoctorInvites() {
+	public List<DoctorInvite> getDoctorInfoInvites() {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from DoctorInvite as invite where invite.status='y'");
+		Query query = session.createQuery("from DoctorInfoInvite as invite where invite.status='y'");
 		
-		return (List<com.medify.app.entity.DoctorInvite>)query.list();
+		return (List<DoctorInvite>)query.list();
 	}
 
 	@Override
-	public Specialty findSpecialty(int specialtyId) {
+	public Speciality findSpeciality(long specialtyId) {
 		
 		Session session = getCurrentSession();
 
-		Specialty specialty = (Specialty) session.get(Specialty.class, specialtyId);
+		Speciality specialty = (Speciality) session.get(Speciality.class, specialtyId);
 		
 		return specialty==null ? null: specialty;
 	}
 
 	@Override
-	public boolean updateSpecialty(Specialty specialty) {
+	public boolean updateSpeciality(Speciality specialty) {
 
 		Session session = getCurrentSession();
 
-		Specialty existingSpecialty = (Specialty) session.get(Specialty.class, specialty.getId());
+		Speciality existingSpeciality = (Speciality) session.get(Speciality.class, specialty.getId());
 		
-		if(existingSpecialty!=null){
+		if(existingSpeciality!=null){
 
-			existingSpecialty.setDisplayName(specialty.getDisplayName());
-			existingSpecialty.setName(specialty.getName());
+			existingSpeciality.setDisplayName(specialty.getDisplayName());
+			existingSpeciality.setSpecialityName(specialty.getSpecialityName());
 			
-			session.update(existingSpecialty);
+			session.update(existingSpeciality);
 			
 			return true;
 		}
@@ -174,17 +182,17 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Specialty> getSpecialties() {
+	public List<Speciality> getSpecialties() {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Specialty as sp where sp.status='y'");
+		Query query = session.createQuery("from Speciality as sp where sp.status='y'");
 		
-		return (List<Specialty>)query.list();
+		return (List<Speciality>)query.list();
 	}
 
 	@Override
-	public boolean removeSpecialty(int promoCodeId) {
+	public boolean removeSpeciality(int promoCodeId) {
 
 		Session session = getCurrentSession();
 
@@ -284,20 +292,20 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Specialty findSpecialty(String name) {
+	public Speciality findSpeciality(String name) {
 
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Specialty as specialty where specialty.name=:name and specialty.status='y'");
+		Query query = session.createQuery("from Speciality as specialty where specialty.name=:name and specialty.status='y'");
 		query.setString("name", name);
 	
-		List<Specialty> specialties = query.list();
+		List<Speciality> specialties = query.list();
 		
 		return specialties.isEmpty() ? null : specialties.get(0);				
 	}
 
 	@Override
-	public boolean addSpecialty(Specialty specialty) {
+	public boolean addSpeciality(Speciality specialty) {
 
 		Session session = getCurrentSession();
 		

@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.medify.app.entity.Doctor;
+import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
 import com.medify.app.entity.Patient;
 import com.medify.app.entity.PromoCode;
 import com.medify.app.entity.Query;
 import com.medify.app.entity.Reschedule;
-import com.medify.app.entity.Specialty;
+import com.medify.app.entity.Speciality;
 import com.medify.app.service.AdminService;
 import com.medify.app.service.CustomerService;
 
@@ -39,9 +39,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/get-doctor")
-	public String getDoctor(@RequestParam int id, ModelMap map) {
+	public String getDoctorInfo(@RequestParam int id, ModelMap map) {
 		
-		Doctor doctor = service.findDoctor(id);
+		DoctorInfo doctor = service.findDoctorInfo(id);
 		
 		if(doctor!=null){
 			map.addAttribute("found", true);
@@ -54,9 +54,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("/edit-doctor")
-	public String editDoctor(@RequestParam int id, ModelMap map, HttpServletRequest request) {
+	public String editDoctorInfo(@RequestParam int id, ModelMap map, HttpServletRequest request) {
 		
-		Doctor doctor = service.findDoctor(id);
+		DoctorInfo doctor = service.findDoctorInfo(id);
 		
 		if(doctor!=null){
 			
@@ -73,13 +73,13 @@ public class AdminController {
 
 	@RequestMapping("/remove-doctor")
 	@ResponseBody
-	public String removeDoctor(@RequestParam int id) {
+	public String removeDoctorInfo(@RequestParam int id) {
 		
-		Doctor doctor = service.findDoctor(id);
+		DoctorInfo doctor = service.findDoctorInfo(id);
 		
 		if(doctor!=null){
 			
-			service.removeDoctor(id);
+			service.removeDoctorInfo(id);
 
 			return "removed";
 		}
@@ -89,23 +89,21 @@ public class AdminController {
 
 	@RequestMapping("/update-doctor")
 	@ResponseBody
-	public String updateDoctor(Doctor doctor, ModelMap map, HttpServletRequest request) {
+	public String updateDoctorInfo(DoctorInfo doctor, ModelMap map, HttpServletRequest request) {
 		
-		Object objDoctorId = request.getSession().getAttribute("doctorId");
+		Object objDoctorInfoId = request.getSession().getAttribute("doctorId");
 		
-		if(objDoctorId!=null){
+		if(objDoctorInfoId!=null){
 			
-			int doctorId = Integer.parseInt(objDoctorId.toString());
+			long doctorId = Long.parseLong(objDoctorInfoId.toString());
 			
-			Doctor existingDoctor = service.findDoctor(doctorId);
+			DoctorInfo existingDoctorInfo = service.findDoctorInfo(doctorId);
 			
-			if(existingDoctor!=null){
+			if(existingDoctorInfo!=null){
 				
 				doctor.setId(doctorId);
-				doctor.setDateCreated(existingDoctor.getDateCreated());
-				doctor.setStatus(existingDoctor.getStatus());
 				
-				service.updateDoctor(doctor);
+				service.updateDoctorInfo(doctor);
 	
 				return "updated";
 			}
@@ -117,9 +115,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("/list-doctors")
-	public String listDoctors(ModelMap map) {
+	public String listDoctorInfos(ModelMap map) {
 		
-		List<Doctor> doctors = service.getDoctors();
+		List<DoctorInfo> doctors = service.getDoctorInfos();
 		
 		if(doctors!=null && !doctors.isEmpty()){
 			map.addAttribute("found", true);
@@ -186,7 +184,7 @@ public class AdminController {
 	@RequestMapping("/list-doctor-invites")
 	public String listInvites(ModelMap map) {
 		
-		List<DoctorInvite> invites = service.getDoctorInvites();
+		List<DoctorInvite> invites = service.getDoctorInfoInvites();
 		
 		map.addAttribute("invites", invites);
 		
@@ -201,23 +199,22 @@ public class AdminController {
 /*********************** specialty section ********************/
 
 	@RequestMapping("/create-specialty")
-	public String createSpecialty() {
+	public String createSpeciality() {
 		
 		return "admin/create-specialty";
 	}
 
 	@RequestMapping("/add-specialty")
 	@ResponseBody
-	public String addSpecialty(Specialty specialty) {
+	public String addSpeciality(Speciality specialty) {
 		
-		Specialty existingSpecialty = service.findSpecialty(specialty.getName());
+		Speciality existingSpeciality = service.findSpeciality(specialty.getSpecialityName());
 		
-		if(existingSpecialty==null){
+		if(existingSpeciality==null){
 			
-			specialty.setStatus("y");
-			specialty.setDateCreated(new Date());
+			specialty.setIsActive("y");
 			
-			service.addSpecialty(specialty);
+			service.addSpeciality(specialty);
 
 			return "created";
 		}
@@ -226,9 +223,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("/edit-specialty")
-	public String editSpecialty(@RequestParam int id, ModelMap map, HttpServletRequest request) {
+	public String editSpeciality(@RequestParam int id, ModelMap map, HttpServletRequest request) {
 		
-		Specialty specialty = service.findSpecialty(id);
+		Speciality specialty = service.findSpeciality(id);
 		
 		if(specialty!=null){
 			
@@ -245,13 +242,13 @@ public class AdminController {
 
 	@RequestMapping("/remove-specialty")
 	@ResponseBody
-	public String removeSpecialty(@RequestParam int id) {
+	public String removeSpeciality(@RequestParam int id) {
 		
-		Specialty specialty = service.findSpecialty(id);
+		Speciality specialty = service.findSpeciality(id);
 		
 		if(specialty!=null){
 			
-			service.removeSpecialty(id);
+			service.removeSpeciality(id);
 
 			return "removed";
 		}
@@ -261,23 +258,21 @@ public class AdminController {
 
 	@RequestMapping("/update-specialty")
 	@ResponseBody
-	public String updateDoctor(Specialty specialty, ModelMap map, HttpServletRequest request) {
+	public String updateDoctorInfo(Speciality specialty, ModelMap map, HttpServletRequest request) {
 		
-		Object objSpecialtyId = request.getSession().getAttribute("specialtyId");
+		Object objSpecialityId = request.getSession().getAttribute("specialtyId");
 		
-		if(objSpecialtyId!=null){
+		if(objSpecialityId!=null){
 			
-			int specialtyId = Integer.parseInt(objSpecialtyId.toString());
+			long specialtyId = Long.parseLong(objSpecialityId.toString());
 			
-			Specialty existingSpecialty = service.findSpecialty(specialtyId);
+			Speciality existingSpeciality = service.findSpeciality(specialtyId);
 			
-			if(existingSpecialty!=null){
+			if(existingSpeciality!=null){
 				
 				specialty.setId(specialtyId);
-				specialty.setDateCreated(existingSpecialty.getDateCreated());
-				specialty.setStatus(existingSpecialty.getStatus());
 				
-				service.updateSpecialty(specialty);
+				service.updateSpeciality(specialty);
 	
 				return "updated";
 			}
@@ -291,7 +286,7 @@ public class AdminController {
 	@RequestMapping("/list-specialties")
 	public String listSpecialties(ModelMap map) {
 		
-		List<Specialty> specialties = service.getSpecialties();
+		List<Speciality> specialties = service.getSpecialties();
 		
 		if(specialties!=null && !specialties.isEmpty()){
 			map.addAttribute("found", true);
