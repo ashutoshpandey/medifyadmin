@@ -1,74 +1,109 @@
 package com.medify.app.entity;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "doctor_invites")
-public class DoctorInvite {
+@Table(name = "doctor_invite")
+public class DoctorInvite implements Serializable {
+
+	private static final long serialVersionUID = -2015240365931597576L;
+
+	private Long INVITEDOCID;
+	private String doctorName;
+	private String doctorNumber;
+	private char isCalled = '0';
+	private String callResponse;
+
+	/**
+	 * @return the iNVITEDOCID
+	 */
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id", nullable=false)
-	private int id;	
-	
-	@Column(name="user_id", nullable=false)
-	private int userId;	
-
-	@Column(name="doctor_id", nullable=false)
-	private int doctorId;	
-
-	@Column(name = "date_created")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateCreated;
-	
-	private String status;
-
-	public int getId() {
-		return id;
+	@GeneratedValue
+	@Column(name = "INVITEDOCID")
+	public Long getINVITEDOCID() {
+		return INVITEDOCID;
 	}
 
-	public int getUserId() {
-		return userId;
+	/**
+	 * @param iNVITEDOCID
+	 *            the iNVITEDOCID to set
+	 */
+	public void setINVITEDOCID(Long iNVITEDOCID) {
+		INVITEDOCID = iNVITEDOCID;
 	}
 
-	public int getDoctorId() {
-		return doctorId;
+	/**
+	 * @return the doctorName
+	 */
+
+	@Column(name = "DOC_NAME")
+	public String getDoctorName() {
+		return doctorName;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+	/**
+	 * @param doctorName
+	 *            the doctorName to set
+	 */
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
 
-	public String getStatus() {
-		return status;
+	/**
+	 * @return the doctorNumber
+	 */
+
+	@Column(name = "DOC_NUMBER")
+	public String getDoctorNumber() {
+		return doctorNumber;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * @param doctorNumber
+	 *            the doctorNumber to set
+	 */
+	public void setDoctorNumber(String doctorNumber) {
+		this.doctorNumber = doctorNumber;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	/**
+	 * @return the isCalled
+	 */
+
+	@Column(name = "IS_CALLED")
+	public char getIsCalled() {
+		return isCalled;
 	}
 
-	public void setDoctorId(int doctorId) {
-		this.doctorId = doctorId;
+	/**
+	 * @param isCalled
+	 *            the isCalled to set
+	 */
+	public void setIsCalled(char isCalled) {
+		this.isCalled = isCalled;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+	/**
+	 * @return the callResponse
+	 */
+
+	@Column(name = "CALL_RESPONSE")
+	public String getCallResponse() {
+		return callResponse;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	/**
+	 * @param callResponse
+	 *            the callResponse to set
+	 */
+	public void setCallResponse(String callResponse) {
+		this.callResponse = callResponse;
 	}
 }

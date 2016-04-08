@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.medify.app.dao.CustomerDAO;
-import com.medify.app.entity.Patient;
-import com.medify.app.service.CustomerService;
+import com.medify.app.entity.PatientDetails;
+import com.medify.app.service.PatientService;
 
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class PatientServiceImpl implements PatientService {
 
 	@Autowired
 	private CustomerDAO dao;
 	
 	@Override
-	public Patient findCustomer(int id) {
+	public PatientDetails findCustomer(int id) {
 
 		return dao.findCustomer(id);
 	}
 
 	@Override
-	public List<Patient> getCustomers() {
+	public List<PatientDetails> getCustomers() {
 
 		return dao.getCustomers();
 	}

@@ -7,18 +7,18 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.medify.app.dao.CustomerDAO;
-import com.medify.app.entity.Patient;
+import com.medify.app.entity.PatientDetails;
 
 @Transactional
 @Repository
-public class CustomerDAOImpl extends HibernateUtil implements CustomerDAO {
+public class PatientDAOImpl extends HibernateUtil implements CustomerDAO {
 
 	@Override
-	public Patient findCustomer(int id) {
+	public PatientDetails findCustomer(int id) {
 
 		Session session = getCurrentSession();
 		
-		Patient doctor = (Patient) session.get(Patient.class, id);
+		PatientDetails doctor = (PatientDetails) session.get(PatientDetails.class, id);
 		if (doctor != null) 		
 			return doctor;
 
@@ -26,12 +26,12 @@ public class CustomerDAOImpl extends HibernateUtil implements CustomerDAO {
 	}
 
 	@Override
-	public List<Patient> getCustomers() {
+	public List<PatientDetails> getCustomers() {
 
 		Session session = getCurrentSession();
 		
 		@SuppressWarnings("unchecked")
-		List<Patient> doctors = (List<Patient>)session.createQuery("from Patient as doc where doc.status='active'").list();
+		List<PatientDetails> doctors = (List<PatientDetails>)session.createQuery("from PatientDetails as doc where doc.status='active'").list();
 		if (!doctors.isEmpty()) 		
 			return doctors;	
 
@@ -43,10 +43,10 @@ public class CustomerDAOImpl extends HibernateUtil implements CustomerDAO {
 		
 		Session session = getCurrentSession();
 
-		Patient doctor = (Patient) session.get(Patient.class, id);
+		PatientDetails doctor = (PatientDetails) session.get(PatientDetails.class, id);
 		if (doctor != null) {
 
-			doctor.setStatus("removed");
+			//doctor.setStatus("removed");
 			
 			session.update(doctor);
 

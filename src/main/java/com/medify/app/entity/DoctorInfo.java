@@ -33,10 +33,10 @@ public class DoctorInfo implements Serializable{
 	private String totalEx;
 	private String location;
 	private String city;
-	private String consultFeeText;
-	private String consultFeeCall;
+	private int consultFeeText;
+	private int consultFeeCall;
 	private String clinicAddress;
-	private String isEnabled;
+	private char isEnabled;
 	
 	
 	private Set<AccountInfo> accountDetails;
@@ -90,7 +90,7 @@ public class DoctorInfo implements Serializable{
 	 * @return the gender
 	 */
 	
-	 @Column(name = "GENDER")
+	 @Column(name = "GENDER", columnDefinition="enum('male','female')")
 	public String getGender() {
 		return gender;
 	}
@@ -206,13 +206,13 @@ public class DoctorInfo implements Serializable{
 	 */
 	
 	 @Column(name = "CONSULT_FEE_TEXT")
-	public String getConsultFeeText() {
+	public int getConsultFeeText() {
 		return consultFeeText;
 	}
 	/**
 	 * @param consultFeeText the consultFeeText to set
 	 */
-	public void setConsultFeeText(String consultFeeText) {
+	public void setConsultFeeText(int consultFeeText) {
 		this.consultFeeText = consultFeeText;
 	}
 	/**
@@ -220,13 +220,13 @@ public class DoctorInfo implements Serializable{
 	 */
 	
 	 @Column(name = "CONSULT_FEE_PHONE")
-	public String getConsultFeeCall() {
+	public int getConsultFeeCall() {
 		return consultFeeCall;
 	}
 	/**
 	 * @param consultFeeCall the consultFeeCall to set
 	 */
-	public void setConsultFeeCall(String consultFeeCall) {
+	public void setConsultFeeCall(int consultFeeCall) {
 		this.consultFeeCall = consultFeeCall;
 	}
 	/**
@@ -250,13 +250,13 @@ public class DoctorInfo implements Serializable{
 	 */
 	 
 	 @Column(name = "IS_ENABLED")
-	public String getIsEnabled() {
+	public char getIsEnabled() {
 		return isEnabled;
 	}
 	/**
 	 * @param isEnabled the isEnabled to set
 	 */
-	public void setIsEnabled(String isEnabled) {
+	public void setIsEnabled(char isEnabled) {
 		this.isEnabled = isEnabled;
 	}
 	/**

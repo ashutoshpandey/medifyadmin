@@ -27,16 +27,17 @@
 		<property name="annotatedClasses">
 			<list>
  				<value>com.medify.app.entity.Admin</value>
+ 				<value>com.medify.app.entity.AccountInfo</value>
 				<value>com.medify.app.entity.Appointment</value>
- 				<value>com.medify.app.entity.Doctor</value>
+ 				<value>com.medify.app.entity.DoctorInfo</value>
 				<value>com.medify.app.entity.DoctorInvite</value>
 				<value>com.medify.app.entity.HealthTip</value>
-				<value>com.medify.app.entity.Patient</value>
+				<value>com.medify.app.entity.PatientDetails</value>
 				<value>com.medify.app.entity.PromoCode</value>
 				<value>com.medify.app.entity.Query</value>
 				<value>com.medify.app.entity.QueryAnswer</value>
  				<value>com.medify.app.entity.Reschedule</value>
-				<value>com.medify.app.entity.Specialty</value>
+				<value>com.medify.app.entity.Speciality</value>
 			</list>
 		</property>
 		

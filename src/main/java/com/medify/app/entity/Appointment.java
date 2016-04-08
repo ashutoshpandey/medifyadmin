@@ -1,6 +1,7 @@
 package com.medify.app.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ public class Appointment implements Serializable{
 	private static final long serialVersionUID = -4334833190765359091L;
 	
 	private Long APPOINTMENT_ID;
-	private String appointmentTime;
+	private Date appointmentTime;
 	private String apType;
 	private String apTransId;
 	
@@ -24,13 +25,13 @@ public class Appointment implements Serializable{
 	private Long doctorId;
 	private Long patientId;
 	
-	private String apCreatedDate;
-	private String callHappened="0";
+	private Date apCreatedDate;
+	private char callHappened='0';
 	
 	private String apreason;
 	private Long slotId;
 	
-	private String apEndDate;
+	private Date apEndDate;
 	private String isView="0";
 	
 	/**
@@ -43,20 +44,20 @@ public class Appointment implements Serializable{
 	 */
 	
 	 @Column(name = "APPOINTMENTTIME")
-	public String getAppointmentTime() {
+	public Date getAppointmentTime() {
 		return appointmentTime;
 	}
 	/**
 	 * @param appointmentTime the appointmentTime to set
 	 */
-	public void setAppointmentTime(String appointmentTime) {
+	public void setAppointmentTime(Date appointmentTime) {
 		this.appointmentTime = appointmentTime;
 	}
 	/**
 	 * @return the apType
 	 */
 	
-	 @Column(name = "AP_TYPE")
+	 @Column(name = "AP_TYPE", columnDefinition="enum('CALL','CHAT')")
 	public String getApType() {
 		return apType;
 	}
@@ -89,13 +90,13 @@ public class Appointment implements Serializable{
 	 */
 	
 	 @Column(name = "AP_CREATED_AT")
-	public String getApCreatedDate() {
+	public Date getApCreatedDate() {
 		return apCreatedDate;
 	}
 	/**
 	 * @param apCreatedDate the apCreatedDate to set
 	 */
-	public void setApCreatedDate(String apCreatedDate) {
+	public void setApCreatedDate(Date apCreatedDate) {
 		this.apCreatedDate = apCreatedDate;
 	}
 	/**
@@ -103,13 +104,13 @@ public class Appointment implements Serializable{
 	 */
 	
 	 @Column(name = "IS_CALL_HAPPEND")
-	public String getCallHappened() {
+	public char getCallHappened() {
 		return callHappened;
 	}
 	/**
 	 * @param callHappened the callHappened to set
 	 */
-	public void setCallHappened(String callHappened) {
+	public void setCallHappened(char callHappened) {
 		this.callHappened = callHappened;
 	}
 	/**
@@ -187,13 +188,13 @@ public class Appointment implements Serializable{
 	 */
 	
 	@Column(name = "AP_END_DATE")
-	public String getApEndDate() {
+	public Date getApEndDate() {
 		return apEndDate;
 	}
 	/**
 	 * @param apEndDate the apEndDate to set
 	 */
-	public void setApEndDate(String apEndDate) {
+	public void setApEndDate(Date apEndDate) {
 		this.apEndDate = apEndDate;
 	}
 	/**

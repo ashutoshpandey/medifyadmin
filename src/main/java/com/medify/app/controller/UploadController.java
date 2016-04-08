@@ -125,8 +125,8 @@ public class UploadController {
 			String city;
 			String aboutMe;
 			String clinicAddress;
-			String consultFeeCall;
-			String consultFeeText;
+			int consultFeeCall;
+			int consultFeeText;
 			String education;
 			String location;
 			String totalEx;
@@ -258,21 +258,19 @@ public class UploadController {
 					try {
 						errorRow[8] = "Consult fee call : OK";
 						
-						consultFeeCall = sheet.getCell(8, i).getContents();
-						
-						consultFeeCall = consultFeeCall==null ? "" : consultFeeCall;
+						consultFeeCall = Integer.parseInt(sheet.getCell(8, i).getContents());
 						
 					} catch (Exception ex) {
-						consultFeeCall = "";
+						consultFeeCall = 0;
 					}
 					
 					try {
 						errorRow[9] = "Consult fee text : OK";
 						
-						consultFeeText = sheet.getCell(9, i).getContents();
+						consultFeeText = Integer.parseInt(sheet.getCell(9, i).getContents());
 						
 					} catch (Exception ex) {
-						consultFeeText = "";
+						consultFeeText = 0;
 					}
 					
 					try {
@@ -317,7 +315,7 @@ public class UploadController {
 						doctor.setConsultFeeCall(consultFeeCall);
 						doctor.setConsultFeeText(consultFeeText);
 						doctor.setEducation(education);
-						doctor.setIsEnabled("y");
+						doctor.setIsEnabled('y');
 						doctor.setLocation(location);
 						doctor.setPhoneNumber(phoneNumber);
 						doctor.setTotalEx(totalEx);

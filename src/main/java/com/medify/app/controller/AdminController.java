@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
-import com.medify.app.entity.Patient;
+import com.medify.app.entity.PatientDetails;
 import com.medify.app.entity.PromoCode;
 import com.medify.app.entity.Query;
 import com.medify.app.entity.Reschedule;
 import com.medify.app.entity.Speciality;
 import com.medify.app.service.AdminService;
-import com.medify.app.service.CustomerService;
+import com.medify.app.service.PatientService;
 
 @Controller
 @RequestMapping("/")
@@ -31,7 +31,7 @@ public class AdminController {
 	private AdminService service;
 
 	@Autowired
-	private CustomerService customerService;
+	private PatientService patientService;
 
 	@RequestMapping("/admin-section")
 	public String adminSection() {
@@ -129,30 +129,30 @@ public class AdminController {
 		return "admin/list-doctors";
 	}
 
-	@RequestMapping("/list-customers")
+	@RequestMapping("/list-patients")
 	public String listCustomers(ModelMap map) {
 		
-		List<Patient> customers = customerService.getCustomers();
+		List<PatientDetails> patients = patientService.getCustomers();
 		
-		if(customers!=null && !customers.isEmpty()){
+		if(patients!=null && !patients.isEmpty()){
 			map.addAttribute("found", true);
-			map.addAttribute("customers", customers);
+			map.addAttribute("patients", patients);
 		}
 		else
 			map.addAttribute("found", false);
 		
-		return "admin/list-customers";
+		return "admin/list-patients";
 	}
 
-	@RequestMapping("/remove-customer")
+	@RequestMapping("/remove-patient")
 	@ResponseBody
 	public String removeCustomer(@RequestParam int id) {
 		
-		Patient customer = customerService.findCustomer(id);
+		PatientDetails patient = patientService.findCustomer(id);
 		
-		if(customer!=null){
+		if(patient!=null){
 			
-			customerService.removeCustomer(id);
+			patientService.removeCustomer(id);
 
 			return "removed";
 		}
