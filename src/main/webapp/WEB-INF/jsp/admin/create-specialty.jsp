@@ -54,7 +54,7 @@
 					<div class="panel-body">
 						<form id="frm">
 							<div class="form-group">
-								<label>Name</label> <input type="text" name="name"
+								<label>Name</label> <input type="text" name="specialityName"
 									class="form-control span12">
 							</div>
 							<div class="form-group">

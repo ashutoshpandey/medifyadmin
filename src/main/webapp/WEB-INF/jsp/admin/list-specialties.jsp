@@ -64,7 +64,7 @@ $(document).ready(function() {
 						<c:forEach var="specialty" items="${specialties}">
 
 							<tr>
-								<td>${specialty.name}</td>
+								<td>${specialty.specialityName}</td>
 								<td>${specialty.displayName}</td>
 								<td>
 								<a class="link edit-link" href="edit-specialty?id=${specialty.id}">Edit</a>&nbsp;&nbsp; <span

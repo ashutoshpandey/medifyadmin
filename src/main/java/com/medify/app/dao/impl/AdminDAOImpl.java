@@ -186,7 +186,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Speciality as sp where sp.status='y'");
+		Query query = session.createQuery("from Speciality as sp where sp.isActive='y'");
 		
 		return (List<Speciality>)query.list();
 	}
@@ -296,7 +296,7 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Speciality as specialty where specialty.name=:name and specialty.status='y'");
+		Query query = session.createQuery("from Speciality as specialty where specialty.specialityName=:name and specialty.isActive='y'");
 		query.setString("name", name);
 	
 		List<Speciality> specialties = query.list();

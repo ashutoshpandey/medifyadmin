@@ -12,7 +12,7 @@ public class Speciality {
 	private Long id;
 	private String specialityName;
 	private String displayName;
-	private String isActive;
+	private char isActive;
 	
 	
 	/**
@@ -64,13 +64,13 @@ public class Speciality {
 	 */
 	
 	@Column(name = "IS_ACTIVE")
-	public String getIsActive() {
+	public char getIsActive() {
 		return isActive;
 	}
 	/**
 	 * @param isActive the isActive to set
 	 */
-	public void setIsActive(String isActive) {
+	public void setIsActive(char isActive) {
 		this.isActive = isActive;
 	}
 }

@@ -212,7 +212,7 @@ public class AdminController {
 		
 		if(existingSpeciality==null){
 			
-			specialty.setIsActive("y");
+			specialty.setIsActive('y');
 			
 			service.addSpeciality(specialty);
 
