@@ -62,8 +62,8 @@ $(document).ready(function() {
 
 						<c:forEach var="promoCode" items="${promoCodes}">
 
-							<fmt:formatDate pattern="dd-MMM-yyyy" value="${promoCode.startDate}" var="startDate" />
-							<fmt:formatDate pattern="dd-MMM-yyyy" value="${promoCode.endDate}" var="endDate" />
+							<fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${promoCode.startDate}" var="startDate" />
+							<fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${promoCode.endDate}" var="endDate" />
 
 							<tr>
 								<td>${promoCode.code}</td>

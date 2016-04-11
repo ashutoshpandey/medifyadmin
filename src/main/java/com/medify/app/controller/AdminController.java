@@ -1,5 +1,6 @@
 package com.medify.app.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,10 @@ import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
 import com.medify.app.entity.PatientDetails;
 import com.medify.app.entity.PromoCode;
-import com.medify.app.entity.Query;
+import com.medify.app.entity.PublicQuestion;
 import com.medify.app.entity.Reschedule;
 import com.medify.app.entity.Speciality;
+import com.medify.app.pojo.PublicQuestionPatientDoctor;
 import com.medify.app.service.AdminService;
 import com.medify.app.service.PatientService;
 
@@ -130,9 +132,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("/list-patients")
-	public String listCustomers(ModelMap map) {
+	public String listPatients(ModelMap map) {
 		
-		List<PatientDetails> patients = patientService.getCustomers();
+		List<PatientDetails> patients = patientService.getPatients();
 		
 		if(patients!=null && !patients.isEmpty()){
 			map.addAttribute("found", true);
@@ -146,18 +148,31 @@ public class AdminController {
 
 	@RequestMapping("/remove-patient")
 	@ResponseBody
-	public String removeCustomer(@RequestParam int id) {
+	public String removeCustomer(@RequestParam long id) {
 		
-		PatientDetails patient = patientService.findCustomer(id);
+		PatientDetails patient = patientService.findPatient(id);
 		
 		if(patient!=null){
 			
-			patientService.removeCustomer(id);
+			patientService.removePatient(id);
 
 			return "removed";
 		}
 		else
 			return "invalid";
+	}
+
+	@RequestMapping("/view-patient")
+	public String viewCustomer(@RequestParam long id, ModelMap map) {
+		
+		PatientDetails patient = patientService.findPatient(id);
+		
+		if(patient!=null){
+			
+			map.addAttribute("patient", patient);
+		}
+
+		return "admin/view-patient";
 	}
 
 	@RequestMapping("/list-appointments")
@@ -172,13 +187,45 @@ public class AdminController {
 	public String listQueries(@RequestParam(required=false) String type, ModelMap map) {
 		
 		if(type==null)
-			type = "new";
+			type = "pending";
 		
-		List<Query> queries = service.getQueries(type);
+		List<PublicQuestion> queryList = service.getQueries(type);
+		
+		List<PublicQuestionPatientDoctor> queries = new ArrayList<>();
+		
+		for(PublicQuestion publicQuestion : queryList){
+			PublicQuestionPatientDoctor obj = new PublicQuestionPatientDoctor();
+			
+			obj.setPublicQuestion(publicQuestion);
+			obj.setDoctorInfo(service.findDoctorInfo(publicQuestion.getRepliedBy()));
+			obj.setPatientDetail(service.findPatientDetails(publicQuestion.getPostedBy()));
+			
+			queries.add(obj);
+		}
 		
 		map.addAttribute("queries", queries);
 		
 		return "admin/list-queries";
+	}
+	
+	@RequestMapping("/view-query")
+	public String viewQuery(long id, ModelMap map){
+		
+		PublicQuestionPatientDoctor obj = new PublicQuestionPatientDoctor();
+		
+		PublicQuestion publicQuestion = service.findPublicQuestion(id);
+		
+		if(publicQuestion!=null){
+			obj.setPublicQuestion(publicQuestion);
+			obj.setDoctorInfo(service.findDoctorInfo(publicQuestion.getRepliedBy()));
+			obj.setPatientDetail(service.findPatientDetails(publicQuestion.getPostedBy()));
+			
+			map.addAttribute("query", obj);
+		}
+		else
+			map.addAttribute("query", null);
+		
+		return "admin/view-query";
 	}
 
 	@RequestMapping("/list-doctor-invites")
@@ -431,5 +478,4 @@ public class AdminController {
 		
 		return "admin/list-health-tips";
 	}
-
 }

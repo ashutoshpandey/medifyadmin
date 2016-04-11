@@ -48,7 +48,7 @@ public class DoctorInfo implements Serializable{
 	
 	 @Id
 	 @GeneratedValue
-	 @Column(name = "ID")
+	 @Column(name = "ID", columnDefinition="LONG")
 	public Long getId() {
 		return Id;
 	}

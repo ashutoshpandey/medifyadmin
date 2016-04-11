@@ -32,34 +32,36 @@ $(document).ready(function() {
 		<div class="main-content">
 
 			<form id="frm" action="list-queries">
-				<label><input type="radio" name="type" value="new" checked="checked"/> New</label> &nbsp;
-				<label><input type="radio" name="type" value="old"/> Old</label>
+				<a href="list-queries?type=pending">Pending</a> &nbsp;&nbsp;&nbsp;
+				<a href="list-queries?type=replied">Replied</a>
+				<!--  
+				<label><input type="radio" name="type" value="new" checked="checked"/> Pending</label> &nbsp;
+				<label><input type="radio" name="type" value="old"/> Replied</label>
+				-->
 			</form>
 
 			<br/>
 
 			<h2>Listing Customer Queries</h2> <br/>
 
-			<c:if test="${appointments ne null}">
+			<c:if test="${queries ne null}">
 
 				<table id="grid" class="display" cellspacing="0" width="100%">
 					<thead>
 						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th>Question</th>
+							<th>By</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 
-						<c:forEach var="appointment" items="${appointments}">
+						<c:forEach var="query" items="${queries}">
 
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>${query.publicQuestion.problem}</td>
+								<td>${query.patientDetail.patientName}</td>
+								<td><a href="view-query?id=${query.publicQuestion.QUESTION_ID}" target="_blank">View</a></td>
 							</tr>
 
 						</c:forEach>

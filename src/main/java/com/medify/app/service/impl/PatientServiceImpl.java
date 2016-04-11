@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.medify.app.dao.CustomerDAO;
+import com.medify.app.dao.PatientDetailDAO;
 import com.medify.app.entity.PatientDetails;
 import com.medify.app.service.PatientService;
 
@@ -13,23 +13,23 @@ import com.medify.app.service.PatientService;
 public class PatientServiceImpl implements PatientService {
 
 	@Autowired
-	private CustomerDAO dao;
+	private PatientDetailDAO dao;
 	
 	@Override
-	public PatientDetails findCustomer(int id) {
+	public PatientDetails findPatient(long id) {
 
-		return dao.findCustomer(id);
+		return dao.findPatientDetail(id);
 	}
 
 	@Override
-	public List<PatientDetails> getCustomers() {
+	public List<PatientDetails> getPatients() {
 
-		return dao.getCustomers();
+		return dao.getPatientDetails();
 	}
 
 	@Override
-	public boolean removeCustomer(int id) {
+	public boolean removePatient(long id) {
 
-		return dao.removeCustomer(id);
+		return dao.removePatientDetail(id);
 	}
 }

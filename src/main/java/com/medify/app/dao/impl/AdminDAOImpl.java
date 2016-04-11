@@ -12,7 +12,9 @@ import com.medify.app.entity.Admin;
 import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
+import com.medify.app.entity.PatientDetails;
 import com.medify.app.entity.PromoCode;
+import com.medify.app.entity.PublicQuestion;
 import com.medify.app.entity.Reschedule;
 import com.medify.app.entity.Speciality;
 
@@ -130,13 +132,19 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.medify.app.entity.Query> getQueries(String type) {
+	public List<PublicQuestion> getQueries(String type) {
 		
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from Query as qry where qry.status='y'");
+		String hql;
+		if(type.equals("pending"))
+			hql = "from PublicQuestion as pq where pq.repliedBy is null order by pq.id";
+		else
+			hql = "from PublicQuestion as pq where pq.repliedBy is not null order by pq.id";
 		
-		return (List<com.medify.app.entity.Query>)query.list();
+		Query query = session.createQuery(hql);
+		
+		return (List<PublicQuestion>)query.list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -335,6 +343,26 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public PatientDetails findPatientDetails(Long postedBy) {
+		
+		Session session = getCurrentSession();
+
+		PatientDetails patient = (PatientDetails) session.get(PatientDetails.class, postedBy);
+		
+		return patient==null ? null: patient;
+	}
+
+	@Override
+	public PublicQuestion findPublicQuestion(long id) {
+		
+		Session session = getCurrentSession();
+
+		PublicQuestion publicQuestion = (PublicQuestion) session.get(PublicQuestion.class, id);
+		
+		return publicQuestion==null ? null: publicQuestion;
 	}
 
 }

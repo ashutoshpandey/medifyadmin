@@ -6,8 +6,9 @@ import com.medify.app.entity.Admin;
 import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
+import com.medify.app.entity.PatientDetails;
 import com.medify.app.entity.PromoCode;
-import com.medify.app.entity.Query;
+import com.medify.app.entity.PublicQuestion;
 import com.medify.app.entity.Reschedule;
 import com.medify.app.entity.Speciality;
 
@@ -29,7 +30,7 @@ public interface AdminDAO {
 
 	boolean updatePassword(String userName, String password);
 
-	List<Query> getQueries(String type);
+	List<PublicQuestion> getQueries(String type);
 
 	List<DoctorInvite> getDoctorInfoInvites();
 
@@ -60,5 +61,9 @@ public interface AdminDAO {
 	boolean addSpeciality(Speciality specialty);
 
 	boolean updatePromoCode(PromoCode promoCode);
+
+	PatientDetails findPatientDetails(Long postedBy);
+
+	PublicQuestion findPublicQuestion(long id);
 
 }

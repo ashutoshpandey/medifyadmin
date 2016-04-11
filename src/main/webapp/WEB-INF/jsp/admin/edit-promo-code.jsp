@@ -62,11 +62,11 @@ $(function(){
 									class="form-control span12 form-control" value="${promoCode.amount}">
 							</div>
 							<div class="form-group">
-								<label>Start Date</label> <input type="text" name="startDate"
+								<label>Start Date ( yyyy-mm-dd hh:mm )</label> <input type="text" name="startDate"
 									class="form-control span12 form-control" value="${startDate}">
 							</div>
 							<div class="form-group">
-								<label>End Date</label> <input type="text" name="endDate"
+								<label>End Date ( yyyy-mm-dd hh:mm )</label> <input type="text" name="endDate"
 									class="form-control span12 form-control" value="${endDate}">
 							</div>
 							<div class="form-group">

@@ -20,7 +20,7 @@ public class PatientDetails implements Serializable{
 	private String patientName;
 	private String profilePicPath;
 	private String mobileNo;
-	private byte[] email;
+	private String email;
 	private int age;
 	private String gender;
 	private Date memberSince;
@@ -37,7 +37,7 @@ public class PatientDetails implements Serializable{
 	
 	 @Id
 	 @GeneratedValue
-	 @Column(name = "PATIENT_ID")
+	 @Column(name = "PATIENT_ID", columnDefinition="LONG")
 	public Long getPATIENT_ID() {
 		return PATIENT_ID;
 	}
@@ -82,13 +82,13 @@ public class PatientDetails implements Serializable{
 	 */
 	
 	 @Column(name = "EMAIL")
-	public byte[] getEmail() {
+	public String getEmail() {
 		return email;
 	}
 	/**
 	 * @param email the email to set
 	 */
-	public void setEmail(byte[] email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 	/**

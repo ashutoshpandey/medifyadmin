@@ -22,7 +22,7 @@ $(document).ready(function() {
     		var id = $(this).attr("rel");
     		
     		$.ajax({
-    			url: 'remove-customer?id=' + id,
+    			url: 'remove-patient?id=' + id,
     			type: 'get',
     			success: function(result){
     				if(result=="removed")
@@ -44,9 +44,9 @@ $(document).ready(function() {
 	<div class="content">
 		<div class="main-content">
 
-			<h2>Listing Customers</h2> <br/>
+			<h2>Listing patients</h2> <br/>
 
-			<c:if test="${customers ne null}">
+			<c:if test="${patients ne null}">
 
 				<table id="grid" class="display" cellspacing="0" width="100%">
 					<thead>
@@ -59,14 +59,15 @@ $(document).ready(function() {
 					</thead>
 					<tbody>
 
-						<c:forEach var="customer" items="${customers}">
+						<c:forEach var="patient" items="${patients}">
 
 							<tr>
-								<td>${customer.firstName} ${customer.lastName}</td>
-								<td>${customer.emailID}</td>
-								<td>${customer.contactNumber}</td>
+								<td>${patient.patientName}</td>
+								<td>${patient.email}</td>
+								<td>${patient.mobileNo}</td>
 								<td>
-									<span class="link remove-link" rel="${customer.id}">Remove</span></td>
+									<a href="view-patient?id=${patient.PATIENT_ID}" target="_blank">View</a>
+								</td>
 							</tr>
 
 						</c:forEach>

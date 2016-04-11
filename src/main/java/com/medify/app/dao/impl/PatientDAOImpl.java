@@ -6,15 +6,15 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.medify.app.dao.CustomerDAO;
+import com.medify.app.dao.PatientDetailDAO;
 import com.medify.app.entity.PatientDetails;
 
 @Transactional
 @Repository
-public class PatientDAOImpl extends HibernateUtil implements CustomerDAO {
+public class PatientDAOImpl extends HibernateUtil implements PatientDetailDAO {
 
 	@Override
-	public PatientDetails findCustomer(int id) {
+	public PatientDetails findPatientDetail(long id) {
 
 		Session session = getCurrentSession();
 		
@@ -26,12 +26,12 @@ public class PatientDAOImpl extends HibernateUtil implements CustomerDAO {
 	}
 
 	@Override
-	public List<PatientDetails> getCustomers() {
+	public List<PatientDetails> getPatientDetails() {
 
 		Session session = getCurrentSession();
 		
 		@SuppressWarnings("unchecked")
-		List<PatientDetails> doctors = (List<PatientDetails>)session.createQuery("from PatientDetails as doc where doc.status='active'").list();
+		List<PatientDetails> doctors = (List<PatientDetails>)session.createQuery("from PatientDetails as doc").list();
 		if (!doctors.isEmpty()) 		
 			return doctors;	
 
@@ -39,7 +39,7 @@ public class PatientDAOImpl extends HibernateUtil implements CustomerDAO {
 	}
 
 	@Override
-	public boolean removeCustomer(int id) {
+	public boolean removePatientDetail(long id) {
 		
 		Session session = getCurrentSession();
 

@@ -10,8 +10,9 @@ import com.medify.app.entity.Admin;
 import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
 import com.medify.app.entity.HealthTip;
+import com.medify.app.entity.PatientDetails;
 import com.medify.app.entity.PromoCode;
-import com.medify.app.entity.Query;
+import com.medify.app.entity.PublicQuestion;
 import com.medify.app.entity.Reschedule;
 import com.medify.app.entity.Speciality;
 import com.medify.app.service.AdminService;
@@ -65,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Query> getQueries(String type) {
+	public List<PublicQuestion> getQueries(String type) {
 
 		return dao.getQueries(type);
 	}
@@ -158,5 +159,17 @@ public class AdminServiceImpl implements AdminService {
 	public boolean updatePromoCode(PromoCode promoCode) {
 
 		return dao.updatePromoCode(promoCode);
+	}
+
+	@Override
+	public PatientDetails findPatientDetails(Long postedBy) {
+
+		return dao.findPatientDetails(postedBy);
+	}
+
+	@Override
+	public PublicQuestion findPublicQuestion(long id) {
+
+		return dao.findPublicQuestion(id);
 	}
 }

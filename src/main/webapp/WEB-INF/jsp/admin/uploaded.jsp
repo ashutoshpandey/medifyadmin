@@ -2,6 +2,7 @@
 
 Status = ${uploadStatus} <br/><br/>
 
+<!--  
 <c:if test="${recordStatusList ne null}">
 	
 	<hr/>
@@ -11,6 +12,7 @@ Status = ${uploadStatus} <br/><br/>
 	</c:forEach>
 	
 </c:if>
+-->
 
 <c:if test="${statusCountList ne null}">
 

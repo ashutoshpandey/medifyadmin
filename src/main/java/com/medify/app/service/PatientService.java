@@ -6,9 +6,9 @@ import com.medify.app.entity.PatientDetails;
 
 public interface PatientService {
 
-	PatientDetails findCustomer(int id);
+	PatientDetails findPatient(long id);
 
-	List<PatientDetails> getCustomers();
+	List<PatientDetails> getPatients();
 
-	boolean removeCustomer(int id);
+	boolean removePatient(long id);
 }
