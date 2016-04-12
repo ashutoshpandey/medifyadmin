@@ -29,6 +29,8 @@ $(document).ready(function() {
 
 			<h2>Listing Health Tips</h2> <br/>
 
+			<br/><a href="create-health-tip">Create health tip</a><br/><br/>
+
 			<c:if test="${healthTips ne null}">
 
 				<table id="grid" class="display" cellspacing="0" width="100%">
@@ -37,7 +39,6 @@ $(document).ready(function() {
 							<th>Doctor</th>
 							<th>Specialty</th>
 							<th></th>
-							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -45,13 +46,9 @@ $(document).ready(function() {
 						<c:forEach var="healthTip" items="${healthTips}">
 
 							<tr>
-								<td>${healthTip.doctor.firstName} ${healthTip.doctor.lastName}</td>
-								<td>${healthTip.specialty.name}</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="4"></td>
+								<td>${healthTip.doctor.name}</td>
+								<td>${healthTip.specialty.displayName}</td>
+								<td><a href="view-health-tip" target="_blank">View</a></td>
 							</tr>
 
 						</c:forEach>

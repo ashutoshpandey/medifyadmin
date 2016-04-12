@@ -63,4 +63,14 @@ public interface AdminService {
 	PatientDetails findPatientDetails(Long postedBy);
 
 	PublicQuestion findPublicQuestion(long id);
+
+	HealthTip findHealthTip(long id);
+
+	boolean removeHealthTip(long id);
+
+	boolean updateHealthTip(HealthTip healthTip);
+
+	boolean addHealthTip(HealthTip healthTip);
+
+	List<DoctorInfo> getDoctorInfosBySpeciality(long id);
 }

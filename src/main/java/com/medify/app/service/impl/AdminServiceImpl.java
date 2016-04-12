@@ -172,4 +172,34 @@ public class AdminServiceImpl implements AdminService {
 
 		return dao.findPublicQuestion(id);
 	}
+
+	@Override
+	public HealthTip findHealthTip(long healthTipId) {
+
+		return dao.findHealthTip(healthTipId);
+	}
+
+	@Override
+	public boolean removeHealthTip(long id) {
+		
+		return dao.removeHealthTip(id);
+	}
+
+	@Override
+	public boolean updateHealthTip(HealthTip healthTip) {
+
+		return dao.updateHealthTip(healthTip);
+	}
+
+	@Override
+	public boolean addHealthTip(HealthTip healthTip) {
+
+		return dao.addHealthTip(healthTip);
+	}
+
+	@Override
+	public List<DoctorInfo> getDoctorInfosBySpeciality(long id) {
+
+		return dao.getDoctorInfosBySpeciality(id);
+	}
 }

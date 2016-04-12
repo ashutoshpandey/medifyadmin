@@ -26,7 +26,7 @@ public interface AdminDAO {
 
 	boolean updateDoctorInfo(DoctorInfo doctor);
 
-	List<DoctorInfo> getDoctorInfosBySpeciality(String specialty);
+	List<DoctorInfo> getDoctorInfosBySpeciality(long id);
 
 	boolean updatePassword(String userName, String password);
 
@@ -65,5 +65,13 @@ public interface AdminDAO {
 	PatientDetails findPatientDetails(Long postedBy);
 
 	PublicQuestion findPublicQuestion(long id);
+
+	HealthTip findHealthTip(long healthTipId);
+
+	boolean removeHealthTip(long id);
+
+	boolean addHealthTip(HealthTip healthTip);
+
+	boolean updateHealthTip(HealthTip healthTip);
 
 }

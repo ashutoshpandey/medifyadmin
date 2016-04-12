@@ -31,6 +31,7 @@
 				<value>com.medify.app.entity.Appointment</value>
  				<value>com.medify.app.entity.DoctorInfo</value>
 				<value>com.medify.app.entity.DoctorInvite</value>
+ 				<value>com.medify.app.entity.DoctorSpeciality</value>
 				<value>com.medify.app.entity.HealthTip</value>
 				<value>com.medify.app.entity.PatientDetails</value>
 				<value>com.medify.app.entity.PromoCode</value>

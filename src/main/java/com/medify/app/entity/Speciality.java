@@ -21,7 +21,7 @@ public class Speciality {
 	
 	 @Id
 	 @GeneratedValue
-	 @Column(name = "SPECIALITY_ID")
+	 @Column(name = "SPECIALITY_ID", columnDefinition="LONG")
 	public Long getId() {
 		return id;
 	}

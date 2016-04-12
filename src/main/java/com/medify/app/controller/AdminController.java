@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.medify.app.entity.DoctorInfo;
 import com.medify.app.entity.DoctorInvite;
-import com.medify.app.entity.HealthTip;
 import com.medify.app.entity.PatientDetails;
 import com.medify.app.entity.PromoCode;
 import com.medify.app.entity.PublicQuestion;
@@ -466,16 +465,18 @@ public class AdminController {
 		else
 			return "invalid";
 	}
-	
-	/*********************** health tips **********************/
 
-	@RequestMapping("/list-health-tips")
-	public String listHealthTips(ModelMap map) {
+	@RequestMapping("/get-doctors-in-speciality")
+	@ResponseBody
+	public List<DoctorInfo> getDoctorsInSpeciality(@RequestParam long id, ModelMap map, HttpServletRequest request) {
 		
-		List<HealthTip> healthTips = service.getHealthTips();
+		List<DoctorInfo> doctors = service.getDoctorInfosBySpeciality(id);
 		
-		map.addAttribute("healthTips", healthTips.isEmpty() ? null : healthTips);
-		
-		return "admin/list-health-tips";
+		if(doctors!=null && !doctors.isEmpty()){
+			
+			return doctors;
+		}
+		else
+			return new ArrayList<DoctorInfo>();
 	}
 }

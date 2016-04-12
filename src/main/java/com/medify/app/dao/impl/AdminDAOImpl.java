@@ -115,11 +115,14 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<DoctorInfo> getDoctorInfosBySpeciality(String specialty) {
+	public List<DoctorInfo> getDoctorInfosBySpeciality(long id) {
 
 		Session session = getCurrentSession();
 		
-		Query query = session.createQuery("from DoctorInfo as doc where doc.status='y'");
+		String hql = "from DoctorInfo as doc where doc.id in(select doctorId from DoctorSpeciality as ds where ds.specialityId=:specialityId and ds.isEnabled='1')";		
+		
+		Query query = session.createQuery(hql);
+		query.setLong("specialityId", id);
 		
 		return (List<DoctorInfo>)query.list();
 	}
@@ -363,6 +366,62 @@ public class AdminDAOImpl extends HibernateUtil implements AdminDAO {
 		PublicQuestion publicQuestion = (PublicQuestion) session.get(PublicQuestion.class, id);
 		
 		return publicQuestion==null ? null: publicQuestion;
+	}
+
+	@Override
+	public HealthTip findHealthTip(long id) {
+		
+		Session session = getCurrentSession();
+
+		HealthTip healthTip = (HealthTip) session.get(HealthTip.class, id);
+		
+		return healthTip==null ? null: healthTip;
+	}
+
+	@Override
+	public boolean removeHealthTip(long id) {
+		
+		Session session = getCurrentSession();
+
+		HealthTip healthTip = (HealthTip) session.get(HealthTip.class, id);
+		
+		if(healthTip!=null){
+			session.delete(healthTip);
+			
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean addHealthTip(HealthTip healthTip) {
+
+		Session session = getCurrentSession();
+		
+		session.save(healthTip);
+		
+		return true;
+	}
+
+	@Override
+	public boolean updateHealthTip(HealthTip healthTip) {
+
+		Session session = getCurrentSession();
+
+		HealthTip existingHealthTip = (HealthTip) session.get(HealthTip.class, healthTip.getId());
+		
+		if(existingHealthTip!=null){
+
+			existingHealthTip.setContent(healthTip.getContent());
+			existingHealthTip.setTopic(healthTip.getTopic());
+			
+			session.update(existingHealthTip);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 }

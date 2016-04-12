@@ -29,6 +29,8 @@
 						class="fa fa-caret-right"></span> Promo Codes</a></li>
 				<li><a href="list-queries"><span
 						class="fa fa-caret-right"></span> Queries</a></li>
+				<li><a href="list-health-tips"><span
+						class="fa fa-caret-right"></span> Health Tips</a></li>
 				<li><a href="list-re-schedules"><span
 						class="fa fa-caret-right"></span> Re-Schedules</a></li>
 				<li><a href="list-specialties"><span
